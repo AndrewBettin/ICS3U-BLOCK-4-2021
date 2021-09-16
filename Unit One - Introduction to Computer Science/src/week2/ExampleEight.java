@@ -14,10 +14,10 @@ public class ExampleEight {
 
         double average = (double) (markOne + markTwo + markThree + markFour + markFive) / NUM_MARKS;
 
-        int x = (int) y;
-        double y = 3.7;
-
-        double z = (double) 7; // explicit cast
+        
+        //double y = 3.7;
+        //int x = (int) y;
+        //double z = (double) 7; // explicit cast
 
         //int -> double // widening conversion
         // double -> int // narrowing conversion

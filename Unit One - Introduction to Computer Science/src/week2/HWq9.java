@@ -10,7 +10,7 @@ public class HWq9 {
         double n = 0.05;
         double d = 0.10;
         double q = 0.25;
-        int l = 1;
+        int l = 1;  
         int t = 2;
 
         int pp = 10;
