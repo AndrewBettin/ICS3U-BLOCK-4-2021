@@ -15,5 +15,7 @@ public class StudentExample{
     max.addTest(98);
     max.addTest(67);
     max.displayAverage();
+
+    Student david = new Student("david", "768901", 10);
     }
 }
