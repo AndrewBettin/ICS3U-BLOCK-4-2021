@@ -14,9 +14,9 @@ public class CrazyEights {
    private static final String QUEEN = "Q";
    private static final String KING = "K";
 
-   // private static final int aceP = 1;
-   // private static final int eightP = 50;
-   // private static final int kjqP = 10;
+   private static final int aceP = 1;
+   private static final int eightP = 50;
+   private static final int tkjqP = 10;
 
    public static void main(String[] args) {
       int playerPoints = 0, c1Points = 0, c2Points = 0;
@@ -30,6 +30,24 @@ public class CrazyEights {
          c1Points += Integer.parseInt(result.substring(firstDash + 1, secondDash));
          c2Points += Integer.parseInt(result.substring(secondDash + 1));
 
+         if(gameOver(playerPoints, c1Points, c2Points)){ //tells you who had the most points and lost
+            if(playerPoints > c1Points && playerPoints > c2Points){
+               System.out.println("You lost!");
+            } else if(c1Points > c2Points && c1Points > playerPoints){
+               System.out.println("Computer 1 lost!"); 
+            } else if(c2Points > c1Points && c2Points > playerPoints){
+               System.out.println("Computer 2 lost!");
+            }
+
+            if(playerPoints < c1Points && playerPoints < c2Points){ //tell you who had the least points and won
+               System.out.println("You win!");
+            } else if(c1Points < c2Points && c1Points < playerPoints){
+               System.out.println("Computer 1 wins!"); 
+            } else if(c2Points < c1Points && c2Points < playerPoints){
+               System.out.println("Computer 2 wins!");
+            }
+            break;
+         }
       }
    }
 
@@ -37,15 +55,14 @@ public class CrazyEights {
       String playerHand = "";
       String c1Hand = "";
       String c2Hand = "";
+      String s1 = "";
+      String s2 = "";
 
       int playerPoints = 0, c1Points = 0, c2Points = 0;
       // String result = playRound();
 
       String topCard = getCard("");
 
-      /**
-       * build something that looks like: hand-topCard
-       */
 
       playerHand = "";
 
@@ -56,7 +73,8 @@ public class CrazyEights {
       }
       Scanner in = new Scanner(System.in);
 
-      while (playerHand.length() > 0 && c1Hand.length() > 0 && c2Hand.length() > 0) {
+      String temp = "";
+      while (playerHand.length() > 1 && c1Hand.length() > 1 && c2Hand.length() > 1) {
          System.out.println();
          System.out.println("The top card is: " + topCard);
          playerHand = discard(in, playerHand, topCard);
@@ -64,7 +82,7 @@ public class CrazyEights {
          System.out.println("Computer 1 Hand: " + c1Hand);
          System.out.println("Computer 2 Hand: " + c2Hand);
 
-         String temp = processPlayer(playerHand, topCard);
+         temp = processPlayer(playerHand, topCard);
          playerHand = temp.substring(0, temp.indexOf("-"));
          topCard = temp.substring(temp.indexOf("-") + 1);
 
@@ -76,23 +94,154 @@ public class CrazyEights {
          c2Hand = temp.substring(0, temp.indexOf("-"));
          topCard = temp.substring(temp.indexOf("-") + 1);
       }
+      int numSpacesP = playerHand.length() - playerHand.replace(" ", "").length();  //finds the spaces and replaces them so thay it can accurately calculate score without finding a space
+      int c1NumSpaces = c1Hand.length() - c1Hand.replace(" ", "").length();
+      int c2NumSpaces = c2Hand.length() - c2Hand.replace(" ", "").length();
+      String s1Num = "";
+
+      int i = 0;
+      if(playerHand.length() == 0){
+         
+      } else{
+         while(i < numSpacesP){ // the follwing lines find the card number to then the card in the if statments below
+            s1 = playerHand.substring(0, playerHand.indexOf(" ")); 
+            s2 = playerHand.substring(playerHand.indexOf(" ") + 1, playerHand.length());
+            if(s1.length() == 2){
+               s1Num = String.valueOf(s1.charAt(0));
+            } else if(s1.length() == 3){
+               s1Num = String.valueOf(s1.charAt(0)) + String.valueOf(s1.charAt(1));
+            }
+
+            if(s1Num.equals(ACE)){ 
+               playerPoints += aceP;
+            } else if(s1Num.equals("2")){
+               playerPoints += 2;
+            } else if(s1Num.equals("3")){
+               playerPoints += 3;
+            } else if(s1Num.equals("4")){
+               playerPoints += 4;
+            } else if(s1Num.equals("5")){
+               playerPoints += 5;
+            } else if(s1Num.equals("6")){
+               playerPoints += 6;
+            } else if(s1Num.equals("7")){
+               playerPoints += 7;
+            } else if(s1Num.equals("8")){
+               playerPoints += eightP;
+            } else if(s1Num.equals("9")){
+               playerPoints += 9;
+            } else if(s1Num.equals("3")){
+               playerPoints += 3;
+            } else if(s1Num.equals("10")){
+               playerPoints += tkjqP;
+            } else if(s1Num.equals(JACK)){
+               playerPoints += tkjqP;
+            } else if(s1Num.equals(QUEEN)){
+               playerPoints += tkjqP;
+            } else if(s1Num.equals(KING)){
+               playerPoints += tkjqP;
+            }
+            playerHand = s2;
+            i++;
+         }
+      }
+      if(c1Hand.length() == 0){
+
+      } else{
+         i = 0;
+         while(i < c1NumSpaces){
+            s1 = c1Hand.substring(0, c1Hand.indexOf(" "));
+            s2 = c1Hand.substring(c1Hand.indexOf(" ") + 1, c1Hand.length());
+            if(s1.length() == 2){
+               s1Num = String.valueOf(s1.charAt(0));
+            } else if(s1.length() == 3){
+               s1Num = String.valueOf(s1.charAt(0)) + String.valueOf(s1.charAt(1));
+            }
+
+            if(s1Num.equals(ACE)){
+               c1Points += aceP;
+            } else if(s1Num.equals("2")){
+               c1Points += 2;
+            } else if(s1Num.equals("3")){
+               c1Points += 3;
+            } else if(s1Num.equals("4")){
+               c1Points += 4;
+            } else if(s1Num.equals("5")){
+               c1Points += 5;
+            } else if(s1Num.equals("6")){
+               c1Points += 6;
+            } else if(s1Num.equals("7")){
+               c1Points += 7;
+            } else if(s1Num.equals("8")){
+               playerPoints += eightP;
+            } else if(s1Num.equals("9")){
+               c1Points += 9;
+            } else if(s1Num.equals("3")){
+               c1Points += 3;
+            } else if(s1Num.equals("10")){
+               c1Points += tkjqP;
+            } else if(s1Num.equals(JACK)){
+               c1Points += tkjqP;
+            } else if(s1Num.equals(QUEEN)){
+               c1Points += tkjqP;
+            } else if(s1Num.equals(KING)){
+               c1Points += tkjqP;
+            }
+            c1Hand = s2;
+            i++;
+         }
+      }
+      if(c2Hand.length() == 0){
+
+      } else{
+         i = 0;
+         while(i < c2NumSpaces){
+            s1 =c2Hand.substring(0, c2Hand.indexOf(" "));
+            s2 = c2Hand.substring(c2Hand.indexOf(" ") + 1, c2Hand.length());
+            if(s1.length() == 2){
+               s1Num = String.valueOf(s1.charAt(0));
+            } else if(s1.length() == 3){
+               s1Num = String.valueOf(s1.charAt(0)) + String.valueOf(s1.charAt(1));
+            }
+
+            if(s1Num.equals(ACE)){
+               c2Points += aceP;
+            } else if(s1Num.equals("2")){
+               c2Points += 2;
+            } else if(s1Num.equals("3")){
+               c2Points += 3;
+            } else if(s1Num.equals("4")){
+               c2Points += 4;
+            } else if(s1Num.equals("5")){
+               c2Points += 5;
+            } else if(s1Num.equals("6")){
+               c2Points += 6;
+            } else if(s1Num.equals("7")){
+               c2Points += 7;
+            } else if(s1Num.equals("8")){
+               c2Points += eightP;
+            } else if(s1Num.equals("9")){
+               c2Points += 9;
+            } else if(s1Num.equals("3")){
+               c2Points += 3;
+            } else if(s1Num.equals("10")){
+               c2Points += tkjqP;
+            } else if(s1Num.equals(JACK)){
+               c2Points += tkjqP;
+            } else if(s1Num.equals(QUEEN)){
+               c2Points += tkjqP;
+            } else if(s1Num.equals(KING)){
+               c2Points += tkjqP;
+            }
+            c2Hand = s2;
+            i++;
+         }
+
+      }
       return playerPoints + "-" + c1Points + "-" + c2Points;
    }
 
    private static String processComputer(String c1Hand, String topCard) {
-      /**
-       * String playCard = ""; while (!canPlay(c1Hand, topCard)) { if
-       * (c1Hand.contains("8")) { int cardIndex = c1Hand.indexOf("8"); playCard =
-       * c1Hand.substring(cardIndex, cardIndex + 1); System.out.println("Computer 1
-       * played a " + playCard); topCard = playCard; System.out.println(topCard); }
-       * for (int i = 0; i < 5; i++) { c1Hand += getCard("") + " "; } } while
-       * (canPlay(c1Hand, topCard)) { if (c1Hand.contains(getSuit()) ||
-       * c1Hand.contains(getFace())) { playCard =
-       * c1Hand.substring(c1Hand.indexOf(getFace()), c1Hand.indexOf(getSuit()));
-       * System.out.println("Computer 1 played" + playCard); playCard = topCard;
-       * System.out.println(topCard); } }
-       */
-
       String playCard = "";
       String uTopCardNum = "";
       String uTopCardFace = "";
@@ -104,6 +253,7 @@ public class CrazyEights {
          uTopCardNum = String.valueOf(topCard.charAt(0));
          uTopCardFace = String.valueOf(topCard.charAt(1));
       }
+      
 
       while (canPlay(c1Hand, uTopCardNum + uTopCardFace)) {
          int numSpaces = c1Hand.length() - c1Hand.replace(" ", "").length();
@@ -112,13 +262,14 @@ public class CrazyEights {
          String s1 = "";
          String s2 = "";
          String s3 = "";
-         while (i < numSpaces) {
+         while (i < numSpaces) { //iterates through the computer hand until if finds
+                                 // a letter or number that matches that of the topCard
             s1 = temp.substring(0, temp.indexOf(" "));
             s2 = temp.substring(temp.indexOf(" ") + 1, temp.length());
             if (s1.length() == 2) {
                if (String.valueOf(s1.charAt(0)).equals(uTopCardNum)
                      || String.valueOf(s1.charAt(1)).equals(uTopCardFace)) {
-                  s3 += s2 + " ";
+                  s3 += s2 + "";
                   temp = s3;
                   return temp + "-" + s1;
                }
@@ -137,7 +288,7 @@ public class CrazyEights {
       }
 
       while (!canPlay(c1Hand, uTopCardNum + uTopCardFace)) {
-         if (c1Hand.contains("8")) {
+         if (c1Hand.contains("8")) { //check to see if there is an 8 before trying to draw a card
             int cardIndex = c1Hand.indexOf("8");
             playCard = c1Hand.substring(cardIndex, cardIndex + 1);
             System.out.println("Computer 1 played a " + playCard);
@@ -145,14 +296,14 @@ public class CrazyEights {
             System.out.println(topCard);
          }
 
-         while (!c1Hand.contains(uTopCardNum) && !c1Hand.contains(uTopCardFace) && j < 5) {
-            c1Hand += getCard("") + " ";
+         while ((!c1Hand.contains(uTopCardNum) || !c1Hand.contains(uTopCardFace)) && j < 5) { 
+            c1Hand += getCard("") + " "; //draws cards until either it finds a car with the same suit or number OR it has drawn 5 cards
             j++;
          }
          System.out.println();
          System.out.println("The computer drew a card!");
-         System.out.println("The top card is: " + topCard);
       }
+
       return c1Hand + "-" + topCard;
    }
 
@@ -162,32 +313,26 @@ public class CrazyEights {
       String playCard = "";
       String uTopCardNum = "";
       String uTopCardFace = "";
-      /**if (topCard.length() == 5) {
-         uTopCardNum = String.valueOf(topCard.charAt(2)) + String.valueOf(topCard.charAt(3));
-         uTopCardFace = String.valueOf(topCard.charAt(4));
-      } else if (topCard.length() == 4) {
-         uTopCardNum = String.valueOf(topCard.charAt(2));
-         uTopCardFace = String.valueOf(topCard.charAt(3));
-      } else if (topCard.length() == 3) {
-         uTopCardNum = String.valueOf(topCard.charAt(0)) + String.valueOf(topCard.charAt(1));
-         uTopCardFace = String.valueOf(topCard.charAt(1));
-      } else if (topCard.length() == 2) {
-         uTopCardNum = String.valueOf(topCard.charAt(0));
-         uTopCardFace = String.valueOf(topCard.charAt(1));
-      }*/
-      if (topCard.length() == 3) {
+      if (topCard.length() == 3) { //gets the topCard that has has a length of 3 (ex.10H)
          uTopCardNum = String.valueOf(topCard.charAt(0)) + String.valueOf(topCard.charAt(1));
          uTopCardFace = String.valueOf(topCard.charAt(2));
-      } else if (topCard.length() == 2) {
+      } else if (topCard.length() == 2) { // gets the topCard that has a length of 2 (ex.JH)
          uTopCardNum = String.valueOf(topCard.charAt(0));
          uTopCardFace = String.valueOf(topCard.charAt(1));
       }
+      while (!canPlay(playerHand, uTopCardNum + uTopCardFace)) { //first check if it can play or not
+         if ((!playerHand.contains(uTopCardNum) || !playerHand.contains(uTopCardFace)) && k < 5) {
+            playerHand += getCard("") + " "; //draws cards until either it finds a car with the same suit or number OR it has drawn 5 cards
+            k++;
+         }
+         System.out.println("Your hand:" + playerHand); //prints you hand :)
+      }
 
-      while (canPlay(playerHand, uTopCardNum + uTopCardFace)) {
+      while (canPlay(playerHand, uTopCardNum + uTopCardFace)) { //sees whether or not you can play
          playerHand = discard(in, playerHand, uTopCardNum + uTopCardFace);
-         System.out.println("Which card would you like to place? ");
-         playCard = in.nextLine().toUpperCase();
-         if (playerHand.contains(playCard) && canPlay(playCard, uTopCardNum + uTopCardFace)) {
+         System.out.println("Which card would you like to place? "); 
+         playCard = in.nextLine().toUpperCase(); //lets you type your card
+         if (playerHand.contains(playCard) && canPlay(playCard, uTopCardNum + uTopCardFace)) { //check to see if you have the inputed card
             int cardIndex = playerHand.indexOf(playCard);
             String s1 = playerHand.substring(0, cardIndex);
             String s2 = playerHand.substring(cardIndex + playCard.length() + 1, playerHand.length());
@@ -198,15 +343,8 @@ public class CrazyEights {
          }
       }
 
-      while (!canPlay(playerHand, uTopCardNum + uTopCardFace)) {
-         while (!playerHand.contains(uTopCardNum) && !playerHand.contains(uTopCardFace) && k < 5) {
-            playerHand += getCard("") + " ";
-            k++;
-         }
-      }
-
       in.close();
-      return playerHand + "-" + topCard;
+      return playerHand + "-" + topCard; //returns the new topCard and hand of the player
    }
 
    private static boolean canPlay(String playerHand, String topCard) {
