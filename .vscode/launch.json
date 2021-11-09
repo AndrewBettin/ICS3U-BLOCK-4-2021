@@ -6,6 +6,69 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch CrossCountry",
+            "request": "launch",
+            "mainClass": "week5.CrossCountry",
+            "projectName": "ICS3U-BLOCK-4-2021_892bc3df"
+        },
+        {
+            "type": "java",
+            "name": "Launch UsingScanner",
+            "request": "launch",
+            "mainClass": "week5.UsingScanner",
+            "projectName": "ICS3U-BLOCK-4-2021_892bc3df"
+        },
+        {
+            "type": "java",
+            "name": "Launch stuff",
+            "request": "launch",
+            "mainClass": "week4.stuff",
+            "projectName": "ICS3U-BLOCK-4-2021_892bc3df"
+        },
+        {
+            "type": "java",
+            "name": "Launch IfStatementExample",
+            "request": "launch",
+            "mainClass": "week4.IfStatementExample",
+            "projectName": "ICS3U-BLOCK-4-2021_892bc3df"
+        },
+        {
+            "type": "java",
+            "name": "Launch BayvewlgenPool",
+            "request": "launch",
+            "mainClass": "BayvewlgenPool",
+            "projectName": "ICS3U-BLOCK-4-2021_892bc3df"
+        },
+        {
+            "type": "java",
+            "name": "Launch BayvewlgenPool",
+            "request": "launch",
+            "mainClass": "week4.BayvewlgenPool",
+            "projectName": "ICS3U-BLOCK-4-2021_892bc3df"
+        },
+        {
+            "type": "java",
+            "name": "Launch ExtraPractice",
+            "request": "launch",
+            "mainClass": "week3.ExtraPractice",
+            "projectName": "ICS3U-BLOCK-4-2021_892bc3df"
+        },
+        {
+            "type": "java",
+            "name": "Launch UnitTest",
+            "request": "launch",
+            "mainClass": "week3.UnitTest",
+            "projectName": "ICS3U-BLOCK-4-2021_892bc3df"
+        },
+        {
+            "type": "java",
+            "name": "Launch thing",
+            "request": "launch",
+            "mainClass": "thing",
+            "projectName": "ICS3U-BLOCK-4-2021_892bc3df"
+        },
+        {
+            "type": "java",
             "name": "Launch StringExamples",
             "request": "launch",
             "mainClass": "week2.StringExamples",

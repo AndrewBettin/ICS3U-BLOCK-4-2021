@@ -50,8 +50,13 @@ public class ExtraPractice {
     //Create a function that accepts a String and a substring and then
     //returns a String with the second string removed from the first String. 
     public static String exampleSix(String str, String subStr){
-        str = str.replace(subStr,"");
-        return str;
+        //str = str.replace(subStr,"");
+        //return str;
+        int index = str.indexOf(subStr);
+        String first = str.substring(0, index);
+        String last = str.substring(index + subStr.length());
+        return first + last;
+
     }
     //Create a function that accepts two Strings and returns the length of the two strings added together.
     public static int exampleSeven(String s1, String s2){
